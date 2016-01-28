@@ -7,21 +7,25 @@
 	<script type="text/javascript" src="java.js"></script>
 	<title>Infinite Scroll</title>
 </head>
-<body ng-controller="controllerOne">
-<div class="container">
+<body ng-controller="controllerOne" >
+<div onscroll="sc()" class="container">
 	<h1>Calander Application</h1>
 	
-	<div ng-click="showInput()" class="day">
+
+	<div ng-dblClick="showInput()" class="day" ng-repeat="day in week">
 		<h3>Date</h3>
-		<form ng-submit="">
-		<input ng-Show="dayInput" ng-model="appointment"type="text" placeholder="Appointment Information" >
-		<submit ng-keyPress="submit">
+		<form ng-Show="dayInput" ng-submit="submit($event)">
+			<input ng-model="app.info" type="text" placeholder="Appointment Information" >
+			<input ng-show="dont"type="submit">
 		</form>
-		<ul ng-show="list" class="list">
-			<li class="app">{{appointment.one}}</li>
-			<li>{{appointment.two}}</li>
-			<li>{{appointment.three}}</li>
-			<li>{{appointment.four}}</li>
+		<ul  class="list">
+			<li class="app" ng-repeat="app in day track by $index" ng-click="edit(app)">{{app.info}}
+			<form ng-show="app.showEdit" ng-submit="editInfo(app)">
+				<input ng-model="app.info" type="text" placeholder="Edit your Appointment">
+				<input ng-show="dont" type="submit">
+			</form>
+			</li>
+			
 		</ul>
 	
 	</div>
